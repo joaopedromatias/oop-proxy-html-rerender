@@ -17,7 +17,7 @@ const inputNumber = new Component('input', {
 } as WritableHTMLElementProps);
 
 const warningMessage = new Component('span', {
-    style: 'color: red',
+    style: 'color: red; margin-left: 10px;',
     innerText: 'Please enter a number between 1 and 100'
 } as WritableHTMLElementProps);
 
@@ -25,7 +25,7 @@ const button = new Component('button', {
     innerText: 'Change text size',
     onclick: () => { 
         const words = Number((inputNumber.getElement() as HTMLInputElement).value)
-        if (words < 1 || words > 100) {
+        if (words < 1 || words > 100 || isNaN(words)) {
             warningMessage.render()
             setTimeout(() => { 
                 warningMessage.unrender()

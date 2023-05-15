@@ -31,13 +31,17 @@ export class Component {
         }
     }
 
+    private assignProperties(element: HTMLElement, htmlProps: WritableHTMLElementProps) {
+        for (const key in htmlProps) { 
+                (element[key as keyof WritableHTMLElementProps] as unknown) = htmlProps[key as keyof WritableHTMLElementProps]
+            }
+    }
+
     private createElement() {
         const element = document.createElement(this.elementType)
         element.dataset.id = String(this.dataId)        
         if(this.htmlProps){
-            for (const key in this.htmlProps) { 
-                (element[key as keyof WritableHTMLElementProps] as unknown) = this.htmlProps[key as keyof WritableHTMLElementProps]
-            }
+            this.assignProperties(element, this.htmlProps)
         }
         return element
     }
@@ -54,9 +58,7 @@ export class Component {
     private rerender() {
         const element = this.getElement()
         if (element && this.htmlProps) { 
-            for (const key in this.htmlProps) { 
-                (element[key as keyof WritableHTMLElementProps] as unknown) = this.htmlProps[key as keyof WritableHTMLElementProps]
-            }
+            this.assignProperties(element, this.htmlProps)
         }
     }
 

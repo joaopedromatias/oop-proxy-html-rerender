@@ -12,13 +12,16 @@ export class Component {
             });
         }
     }
+    assignProperties(element, htmlProps) {
+        for (const key in htmlProps) {
+            element[key] = htmlProps[key];
+        }
+    }
     createElement() {
         const element = document.createElement(this.elementType);
         element.dataset.id = String(this.dataId);
         if (this.htmlProps) {
-            for (const key in this.htmlProps) {
-                element[key] = this.htmlProps[key];
-            }
+            this.assignProperties(element, this.htmlProps);
         }
         return element;
     }
@@ -32,9 +35,7 @@ export class Component {
     rerender() {
         const element = this.getElement();
         if (element && this.htmlProps) {
-            for (const key in this.htmlProps) {
-                element[key] = this.htmlProps[key];
-            }
+            this.assignProperties(element, this.htmlProps);
         }
     }
     unrender() {
