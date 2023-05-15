@@ -8,6 +8,7 @@ The code is written in TypeScript in order to have more OOP functionalities and 
 
 ```ts
 constructor(elementType: keyof HTMLElementTagNameMap, htmlProps?: WritableHTMLElementProps) {
+    // ...
     this.htmlProps = new Proxy(htmlProps, {
         set: (target, property, newValue) => {
             target[property as keyof WritableHTMLElementProps] = newValue
